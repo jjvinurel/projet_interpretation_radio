@@ -1,0 +1,645 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- base href="http://www.labri.fr/perso/renault/working/" -->
+<!-- <base href="http://localhost/~renault/Webpage/" /> -->
+
+ 
+
+<title> Aide-mémoire Numpy/Scipy </title>
+<link rel="stylesheet" type="text/css" href="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/style.css">
+
+  
+<link rel="stylesheet" type="text/css" href="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/default.css">
+<script src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/highlight.js"></script>
+
+
+</head>
+
+<body>
+<script type="text/javascript" language="javascript">
+<!-- Hiding script contents
+function pushbutton() {
+
+  var x=document.getElementsByTagName('div');
+  for (i=0;i<x.length;i++)
+    {
+      if ((x[i].getAttribute('id') == "leftbar") ||
+          (x[i].getAttribute('id') == "rightbar") ||
+          (x[i].getAttribute('id') == "bottom"))
+        {
+          if (x[i].style.display == "none")
+            { x[i].style.display = "";
+              document.styleSheets[0].cssRules[9].style.setProperty('margin-left','150px',null);}
+          else
+            { x[i].style.display = "none";
+              document.styleSheets[0].cssRules[9].style.setProperty('margin-left','15px',null);}
+        }
+    }
+}
+
+function reducebutton(x) {
+    
+  var y = document.getElementById("par"+x);
+  
+  if (y.getElementsByTagName('div')[1].style.display == '')
+  {
+    x.value='+';
+    y.getElementsByTagName('div')[1].style.display = 'none';
+  }
+  else
+  {
+    x.value='-'
+    y.getElementsByTagName('div')[1].style.display = '';
+  }
+}
+// Hiding script contents -->
+</script>
+ 
+
+<!-- HEAD !-->
+<table summary="Main page" width="100%">
+<tbody><tr> <td width="20"> </td>
+<td height="80"> <div id="head">
+
+
+Aide-mémoire Numpy/Scipy
+</div>
+</td> 
+<td width="20">
+<input name="Print" value="" onclick="pushbutton();" type="button">
+</td> 
+</tr> </tbody></table>
+<!-- END HEAD -->
+
+<!-- MAIN !-->
+<div id="main"> 
+ 
+ 
+<div id="leftbar">
+
+<div class="leftrheader"> Available nodes </div>
+
+<div class="leftrcontainer">
+
+<ul>
+
+<li class="leftitem"> <a href="http://www.labri.fr/perso/renault/working/index.php"> Home Page </a> </li>
+
+<li class="leftitem"> <a href="http://www.labri.fr/perso/renault/working/research/research.php"> Research </a> </li>
+
+<li class="leftitem"> <a href="http://www.labri.fr/perso/renault/working/teaching/teaching.php"> Teaching </a> 
+<ul>
+<li> <a href="http://www.labri.fr/perso/renault/working/teaching/projets/projets.php"> Projets </a></li><li> <a href="http://www.labri.fr/perso/renault/working/teaching/algonum/algonum.php"> IS104 </a> </li><li> <a href="http://www.labri.fr/perso/renault/working/teaching/schemeprog/schemeprog.php"> PG104 </a> </li><li> <a href="http://www.labri.fr/perso/renault/working/teaching/tap/tap.php"> TAP </a> </li><li> <a href="http://www.labri.fr/perso/renault/working/teaching/mtocpl/mtocpl.php"> MTOCPL </a> </li><li> <a href="http://www.labri.fr/perso/renault/working/teaching/robot/robot.php"> Robot </a> </li><li> <a href="https://www.enseirb-matmeca.fr/syllabus"> Syllabus </a> </li></ul>
+</li>
+
+<li class="leftitem"> 
+<a href="http://www.labri.fr/perso/renault/working/programs/programs.php"> Programs </a> 
+</li>
+
+<li class="leftitem"> <a href="http://www.labri.fr/perso/renault/working/personal/personal.php"> Personal </a> </li>
+
+</ul>
+
+</div>
+
+<hr class="medskip">
+
+
+</div>
+
+
+    
+  <!--BEGIN CENTRAL-->
+<div id="central-large">
+  
+
+  <div>
+    Cette partie comporte une liste de fonctions et commandes du langage
+    Python (ainsi que de ses bibliothèques Numpy et Scipy) qui sont
+    généralement utilisées lors de la composition d'algorithmes
+    numériques. Pour mémoire, les documentations de référence de ces
+    bibliothèques sont disponibles aux adresses suivantes&nbsp;: 
+    
+    <center>
+      <a href="http://docs.scipy.org/doc/numpy/reference"><url>http://docs.scipy.org/doc/numpy/reference</url></a><br>
+      <a href="http://docs.scipy.org/doc/scipy/reference"><url>http://docs.scipy.org/doc/scipy/reference</url></a>
+    </center>
+  </div>
+    
+  <div id="par1" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(1)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Manipulation globale</h1></div><div><div>
+
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    import file
+	  </code></td><td></td><td>
+	    Importe le module file 
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    help()
+	  </code></td><td></td><td>
+	    Lance l'aide interactive
+	  </td></tr>
+	
+	<tr><td><code>
+	    help(comm)
+	  </code></td><td></td><td>
+	    Affiche l'aide associée à la commande comm
+	  </td></tr>
+	
+	<tr><td><code>
+	    print(x)
+	  </code></td><td></td><td>
+	    Affichage esthétique (pretty-printing) de <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+	
+	<tr><td><code>
+	    quit()
+	  </code></td><td></td><td>
+	    Permet de quitter l'interpréteur
+	  </td></tr>
+      </tbody>
+    </table></center>
+
+  </div></div>
+</div>
+  <div id="par2" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(2)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Opérateurs arithmétiques élémentaires</h1></div><div><div>
+    
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    = 
+	  </code></td><td></td><td>
+	    Affectation
+	  </td></tr>
+	
+	<tr><td><code>
+	    ==, !=
+	  </code></td><td></td><td>
+	    Égalité, différence
+	  </td></tr>
+	<tr><td><code>
+	    and, or
+	  </code></td><td></td><td>
+	    Disjonction, conjonction
+	  </td></tr>
+	<tr><td><code>
+	    not(b)
+	  </code></td><td></td><td>
+	    Négation de <img class="math" alt="b" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/b.png">
+	  </td></tr>
+       </tbody>       
+
+      <tbody>
+	<tr><td><code>
+	    +, -
+	  </code></td><td></td><td>
+	    Addition, soustraction
+	  </td></tr>
+	
+	<tr><td><code>
+	    *, /
+	  </code></td><td></td><td>
+	    Multiplication, division
+	  </td></tr>
+
+      </tbody>       
+      
+      <tbody>
+	<tr><td><code>
+	    x**y, pow(x,y)
+	  </code></td><td></td><td>
+	    Fonction puissance <img class="math" alt="x^y" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/xy.png">
+	  </td></tr>
+	<tr><td><code>
+	    x % y
+	  </code></td><td></td><td>
+	    Fonction modulo <img class="math" alt="x\ [y]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/xy_002.png">
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    abs(x)
+	  </code></td><td></td><td>
+	    Valeur absolue de <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+	
+	<tr><td><code>
+	    rint(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Nombre entier le plus proche de <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    floor(x), ceil(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Partie entière supérieure et inférieure de <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+
+      </tbody>       
+    </table></center>
+
+
+  </div></div>
+</div>
+  <div id="par3" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(3)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Fonctions réelles usuelles</h1></div><div><div>
+    
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    sqrt(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Racine carrée de <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+	<tr><td><code>
+	    exp(x), log(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Exponentielle, logarithme népérien
+	  </td></tr>
+ 	<tr><td><code>
+	    sin(x), cos(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Fonctions sinus et cosinus
+	  </td></tr>
+ 	<tr><td><code>
+	    arcsin(x), arccos(x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Fonctions trigonométriques inverses
+	  </td></tr>
+      </tbody>
+      <tbody>
+ 	<tr><td><code>
+	    rand()
+	  </code></td><td align="center"><span style="color:#ff7700">numpy.random</span></td><td>
+	    Générateur aléatoire sur <img class="math" alt="[0; 1]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/01.png">
+	  </td></tr>
+ 	<tr><td><code>
+	    rand(n,p)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy.random</span></td><td>
+	    Générateur aléatoire de matrice de dimension <img class="math" alt="n\times p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/ntimesp.png"> sur <img class="math" alt="[0; 1]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/01.png">
+	  </td></tr>
+       </tbody>
+    </table></center>
+    
+
+  </div></div>
+</div>
+  <div id="par4" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(4)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Constantes usuelles</h1></div><div><div>
+    
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    True, False
+	  </code></td><td></td><td>
+	    Constantes vrai et faux
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    1e5
+	  </code></td><td></td><td>
+	    Écriture scientifique de <img class="math" alt="10^{n}" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/10n.png"> (ici <img class="math" alt="10^5" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/105.png">)
+	  </td></tr>
+	<tr><td><code>
+	    nan
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Valeur de Nan (cf. norme IEEE-754)
+	  </td></tr>
+	<tr><td><code>
+	    inf
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Valeur de Inf (cf. norme IEEE-754)
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    pi
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Valeur approchée de <img class="math" alt="\pi \approx 3.1415" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/piapprox3.png">
+	  </td></tr>
+	
+	<tr><td><code>
+	    exp(1)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Valeur approchée de <img class="math" alt="e \approx 2.7183" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/eapprox2.png">
+	  </td></tr>
+
+
+	<tr><td><code>
+	    1j
+	  </code></td><td></td><td>
+	    Nombre complexe <img class="math" alt="i" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/i.png"> tel que <img class="math" alt="i^2 = -1" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/i2-1.png">
+	  </td></tr>
+      </tbody>
+    </table></center>
+
+  </div></div>
+</div>
+  <div id="par5" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(5)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Vecteurs</h1></div><div><div>
+
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    matrix([a, b, ..])
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente le vecteur horizontal <img class="math" alt="[a\ b\ \dots\ d]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/abdotsd.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    matrix([[a], [b], ..])
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente le vecteur vertical <img class="math" alt="\left[\begin{array}{c} a \\ b \\ \vdots \\ d \end{array}\right]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/leftbeginarraycabvdotsdendarrayright.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    x[i]
+	  </code></td><td></td><td>
+	    Représente le <img class="math" alt="i" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/i.png">-ème élément du vecteur
+	    <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    x.size
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Renvoie la longueur du vecteur <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png"> 
+	  </td></tr>
+
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    range(a,b)
+	  </code></td><td></td><td>
+	    Construit le tableau d'entiers <img class="math" alt="[a; a+1; \dots; b]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/aa1dotsb.htm">
+	  </td></tr>
+
+	<tr><td><code>
+	    arange(a,b,i)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Construit le tableau générique <img class="math" alt="[a; a+i; a+2i; \dots; b]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/aaia2idotsb.png">
+	  </td></tr>
+      </tbody>
+    </table></center>
+    
+
+  </div></div>
+</div>
+  <div id="par6" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(6)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Matrices</h1></div><div><div>
+
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    matrix([[a,b .. d],
+	    [e,f ..,h], ..])
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente la matrice <img class="math" alt="\left[\begin{array}{cccc}a &amp; b &amp;\cdots &amp; d \\ e &amp; f &amp; \cdots &amp; h \\\vdots &amp;  &amp;  &amp; \vdots \\ \end{array}\right]" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/leftbeginarrayccccabcdotsdefcdotshvdotsvdotsendarrayright.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    m[i,j]
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente l'élément <img class="math" alt="m_{i,j}" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m_ij.png"> de la matrice
+	      <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+
+
+	<tr><td><code>
+	    m.shape
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Renvoie la taille de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png"> sous forme d'une liste
+	  </td></tr>
+
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    m[i,:]
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Extrait la <img class="math" alt="i" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/i.png">-ème ligne de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+	<tr><td><code>
+	    m[:,i]
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Extrait la <img class="math" alt="i" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/i.png">-ème colonne de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    zeros([n,p])
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente la matrice nulle de taille <img class="math" alt="n\times p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/ntimesp.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    eye(n,p)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente la matrice identité de taille <img class="math" alt="n\times p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/ntimesp.png">
+	  </td></tr>
+
+	<tr><td><code>
+	    ones([n,p])
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente la matrice de coefficients 1 de taille <img class="math" alt="n\times p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/ntimesp.png">
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    asarray(m)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Transforme une matrice en tableau
+	  </td></tr>
+	<tr><td><code>
+	    asmatrix(m)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Transforme un tableau en matrice
+	  </td></tr>
+      </tbody>
+      
+      <tbody>
+	<tr><td><code>
+	    norm(m)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy.linalg</span></td><td>
+	    Norme de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+	<tr><td><code>
+	    transpose(m)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Transposée de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+	<tr><td><code>
+	    det(m)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy.linalg</span></td><td>
+	    Déterminant de la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png">
+	  </td></tr>
+      </tbody>
+
+    </table></center>
+
+  </div></div>
+</div>
+  <div id="par7" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(7)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Polynômes</h1></div><div><div>
+    
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    poly1d([a .. d])  
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente le polynôme <img class="math" alt="ax^n + \ldots + cx + d" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/axnldotscxd.png">
+	  </td></tr>
+	
+	<tr><td><code>
+	    poly1d([a .. d],True)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Représente le polynôme <img class="math" alt="(x-a) \ldots (x-d)" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x-aldotsx-d.png">
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    p.order
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Degré du polynôme <img class="math" alt="p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/p.png">
+	  </td></tr>
+	<tr><td><code>
+	    p.roots, roots(p)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Racines du polynôme <img class="math" alt="p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/p.png">
+	  </td></tr>
+	<tr><td><code>
+	    p.coeffs
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Coefficients du polynôme <img class="math" alt="p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/p.png">
+	  </td></tr>
+	<tr><td><code>
+	    p(x), polyval(p,x)
+	  </code></td><td align="center"><span style="color:#ff7700">numpy</span></td><td>
+	    Évalue le polynôme <img class="math" alt="p" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/p.png"> au point
+	    <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png"> (selon le schéma de Horner)
+	  </td></tr>
+      </tbody>
+    </table></center>
+
+    <div class="boxed"><a class="header">Remarque : </a>
+      Les polynômes sont aussi des objets de première classe en
+      Python, ce qui fait qu'on peut les additionner, les multiplier
+      et les exponentier. Il est possible de les stocker dans des
+      listes mais pas dans des tableaux.
+    </div>
+
+  </div></div>
+</div>
+  <div id="par8" class="sectionheader"><div>    
+    <h1><input name="Reduce" onclick="reducebutton(8)" style="font-size: 8px; padding: 0px; width : 15px" value="-" type="button">
+      &nbsp;Commandes graphiques</h1></div><div><div>
+    
+    <center><table frame="hsides" rules="groups" cellpadding="1" width="80%"><thead><tr><td align="left" width="25%" valign="top">Commande</td><td align="center" width="120" valign="top"><span style="color:#aaaaaa">Bibl.</span></td><td align="left">Résultat</td></tr></thead>
+      <tbody>
+	<tr><td><code>
+	    plot(x,y,c?)
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Affiche les points définis par les vecteurs <img class="math" alt="x" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/x.png"> et&nbsp;<img class="math" alt="y" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/y.png">, (Option~: <img class="math" alt="c" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/c.png"> permet de définir le format et la couleur du
+	    tracé)
+	  </td></tr>
+	<tr><td><code>
+	    imshow(m,c?)
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Affiche la matrice <img class="math" alt="m" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/m.png"> en deux dimensions
+	  </td></tr>
+      </tbody>
+      <tbody>
+	<tr><td><code>
+	    show()
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Affiche la figure courante
+	  </td></tr>
+
+	<tr><td><code>
+	    savefig(name)
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Sauvegarde la figure courante dans le fichier name
+	  </td></tr>
+
+	<tr><td><code>
+	    clf()
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib</span></td><td>
+	    Efface la figure courante
+	  </td></tr>
+      </tbody>
+
+      <tbody>
+	<tr><td><code>
+	    legend(array,loc?)
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Dessine une légende contenant les lignes apparaissant dans
+	    array (Option~: <img class="math" alt="loc = (x,y)" src="Aide-m%C3%A9moire%20Numpy_Scipy_fichiers/locxy.png"> pour définir
+	    l'emplacement)
+	  </td></tr>
+
+	<tr><td><code>
+	    xlabel(str)
+	    ylabel(str)
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Imprime une légende pour décrire les axes horizontaux et
+	    verticaux
+	  </td></tr>
+
+	<tr><td><code>
+	    axis([xl,xr,yb,yt])
+	  </code></td><td align="center"><span style="color:#ff7700">matplotlib.pyplot</span></td><td>
+	    Cadre la figure sur le rectangle décrit par les 4 coordonnées. 
+	  </td></tr>
+
+
+      </tbody>
+    </table></center>
+  </div></div>
+</div>
+    <div class="boxed"><a class="header">Remarque : </a>
+      Le graphique n'est effectivement calculé que lors de l'appel
+      d'une commande <code>show</code> ou <code>savefig</code>. Pour
+      réaliser une figure, il est donc possible d'empiler des
+      commandes de dessin (par exemple plusieurs appels à la commande
+      <code>plot</code>) avant de lancer l'affichage final. 
+    </div>
+
+
+<!--END CENTRAL--></div>
+
+<!-- END MAIN -->
+</div>
+
+<!-- BEGIN BOTTOM -->
+<div id="bottom">
+
+<!-- END BOTTOM -->
+</div>
+
+
+
+ 
+
+</body></html>

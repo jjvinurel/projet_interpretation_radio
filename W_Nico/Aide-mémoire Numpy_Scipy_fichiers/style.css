@@ -1,0 +1,411 @@
+body {
+  background: rgb(255,255,255);
+}
+
+div#head {
+  text-align:    center;
+  color:         black;
+  font-size:     x-large;
+  font-weight:   bold;
+  margin-top:    20px;
+  margin-bottom: 20px;
+}
+
+div#bottom {
+  color:     black;
+  font-size: 9px;
+}
+
+#bottom a:link    { color: rgb(0,0,255); text-decoration: none; }
+#bottom a:visited { color: rgb(50,0,255); text-decoration: none; }
+#bottom a:hover   { color: rgb(255,0,0) }
+#bottom a:active  { color: rgb(255,80,0) }
+
+div#central {
+  background:     rgb(240,240,240);
+  border: 1px dashed rgb(155,155,155);
+  padding-left:   10px;
+  padding-top:    20px;
+  padding-bottom: 15px;
+  margin-left:    150px;
+  margin-right:   150px;
+}
+
+div.sectionheader {
+  padding-left:   0px;
+  padding-top:    0px;
+  padding-bottom: 0px;
+  margin-left:    0px;
+  margin-right:   0px;
+}
+
+div#central-large {
+  background:     rgb(255,255,255);
+  border-top:     2px solid rgb(240,240,240);
+  border-bottom:  2px solid rgb(240,240,240);
+  border: 1px dashed rgb(155,155,155);
+  padding-left:   10px;
+  padding-top:    20px;
+  padding-bottom: 15px;
+  margin-left:    150px;
+  margin-right:   15px;
+}
+
+div.code {
+  font-family:   monospace;
+  text-align:    left; 
+  margin-top:    7px;
+  margin-bottom: 7px;
+  border: 1px solid rgb(155,155,155);
+  padding-left:  15px;
+  background:    rgb(240,230,230);
+  color:         rgb(50,0,0);
+}
+
+div.boxed {
+  text-align:     left; 
+  margin-top:     15px;
+  margin-bottom:  15px;
+  border:         1px dashed rgb(155,155,155);
+  padding-top:    10px;
+  padding-left:   15px;
+  padding-bottom: 10px;
+  background:     rgb(250,250,200);
+}
+
+div.test {
+  text-align:     left; 
+  margin-top:     15px;
+  margin-bottom:  15px;
+  border:         3px double rgb(155,155,155);
+  padding-top:    10px;
+  padding-left:   15px;
+  padding-bottom: 10px;
+/*   background-image:    url(../images/leftheader.png); */
+  background:     rgb(200,250,200);
+}
+
+#leftbar {
+  position:         fixed;
+  left:             10px;
+  top:              92px;
+  float:            left;
+  width:            140px;
+  font-size:        11px;
+  font-family: verdana, arial, sans-serif;
+}
+
+.leftheader {
+  background-image:    url(../images/leftheader.png);
+  background-position: top left;
+  padding-top:         5px;
+  padding-bottom:      10px;
+  color:               rgb(0,0,100);
+  text-align:          center;
+}
+
+.leftrheader {
+  background-image:    url(../images/leftrheader.png);
+  background-position: top left;
+  padding-top:         5px;
+  padding-bottom:      10px;
+  color:               rgb(0,0,100);
+  text-align:          center;
+}
+
+.leftcontainer {
+  background-image:    url(../images/leftcontainer.png);
+  background-position: bottom left;
+  width:               140px;
+  padding-top:         1px;
+  padding-bottom:      1px;
+}
+
+.leftrcontainer {
+  background-image:    url(../images/leftrcontainer.png);
+  background-position: bottom left;
+  width:               140px;
+  padding-top:         1px;
+  padding-bottom:      1px;
+}
+
+.leftcontainer ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/bullet.png);
+  list-style-type     : none;
+  margin-top          : -2px;
+  margin-left         : -25px;
+}
+
+.leftrcontainer ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/bullet.png);
+  list-style-type     : none;
+  margin-top          : 0px;
+  margin-left         : -25px;
+}
+
+.leftrcontainer ul ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/bulletc.png);
+  list-style-type     : none;
+  margin-top          : 0px;
+  margin-left         : -32px;
+}
+
+.leftitem {
+  color:            rgb(150,0,100);
+  margin-left:      20px;
+}
+
+.leftitem a:link    { color: rgb(0,0,200); text-decoration: none; }
+.leftitem a:visited { color: rgb(0,0,200); text-decoration: none; }
+.leftitem a:hover   { color: rgb(255,0,0) }
+.leftitem a:active  { color: rgb(255,80,0) }
+
+#rightbar {
+  position:         fixed;
+  right:            10px;
+  top:              92px;
+  float:            right;
+  width:            140px;
+  font-size:        11px;
+  font-family: verdana, arial, sans-serif;
+}
+
+.rightheader {
+  background-image:    url(../images/rightheader.png);
+  background-position: top right;
+  padding-top:         5px;
+  padding-bottom:      10px;
+  color:               rgb(0,0,100);
+  text-align:          center;
+}
+
+.rightcontainer {
+  background-image:    url(../images/rightcontainer.png);
+  background-position: bottom right;
+  width:               140px;
+  padding-top:         1px;
+  padding-bottom:      1px;
+}
+
+.rightcontainer ul {
+  direction           : rtl;
+  list-style-position : outside;
+  list-style-image    : url(../images/bullet.png);
+  list-style-type     : none;
+  margin-top          : -2px;
+  margin-left         : -2px;
+}
+
+.rightitem {
+  color:            rgb(0,150,100);
+  text-align:       right;
+}
+
+.rightitem a:link    { color: rgb(0,0,200); text-decoration: none; }
+.rightitem a:visited { color: rgb(0,0,200); text-decoration: none; }
+.rightitem a:hover   { color: rgb(255,0,0) }
+.rightitem a:active  { color: rgb(255,80,0) }
+
+#central h1 {
+  color:               rgb(0,0,100);
+  border-bottom:       2px solid black;
+  text-align:          left;
+  font-family:         Verdana, Arial, sans-serif;
+  font-weight:         normal;
+  font-size:           18px;
+  margin-left:         10px;
+  margin-right:        20px;
+  margin-bottom:       20px;
+  background-image:    url(../images/endbar.png);
+  background-position: center right;
+  background-repeat:   no-repeat;
+}
+
+#central div {
+  font-size:     14px;
+  margin-left:   10px;
+  margin-right:  20px;
+  margin-bottom: 20px;
+}
+
+#central img {
+  float: right;
+}
+
+#central-large h1 {
+  color:               rgb(0,0,100);
+  border-bottom:       2px solid black;
+  text-align:          left;
+  font-family:         Verdana, Arial, sans-serif;
+  font-weight:         normal;
+  font-size:           18px;
+  margin-left:         -5px;
+  margin-right:        -10px;
+  margin-bottom:       20px;
+  background-image:    url(../images/endbar.png);
+  background-position: center right;
+  background-repeat:   no-repeat;
+}
+
+#central-large div {
+  font-size:     14px;
+  margin-left:   10px;
+  margin-right:  20px;
+  margin-bottom: 20px;
+}
+
+#central ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/arrow.png);
+  list-style-type     : none;
+  margin-left         : -20px;
+}
+
+#central ul li {
+  margin-top : 2px;
+}
+
+#central-large ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/arrow.png);
+  list-style-type     : none;
+  margin-left         : -20px;
+}
+
+#central-large ul li {
+  margin-top : 2px;
+}
+
+#central-large ul li ul {
+  list-style-position : outside;
+  list-style-image    : url(../images/bullet.png);
+  list-style-type     : none;
+  margin-top          : -2px;
+  margin-left         : -2px;
+}
+
+/* Styles particuliers au CSS */
+.title {
+  font-style: italic;
+  color:      rgb(140,60,60);
+}
+
+.person {
+  
+}
+
+.journal {
+  font-family: Georgia, Verdana, Arial, sans-serif;
+  color:     rgb(10,10,70);
+}
+
+.journal:hover {
+  background: rgb(255,255,180);
+}
+
+.location {
+  color:		rgb(0,0,0);	  
+  text-decoration:	none;
+}
+
+.header {
+  font-family: sans-serif;
+  font-weight: bold;
+  color:       rgb(150,0,0);
+}
+
+/* Description fichiers PDF */
+a.pdffile {
+  background-image:    url(../images/pdffile.png);
+  background-position: center left;
+  background-repeat:   no-repeat;
+  font-family:         Georgia, Verdana, Arial, sans-serif;
+  border-bottom-width: thin;
+  border-bottom-style: dashed;
+  border-color:        rgb(80,80,155);
+  color:               rgb(80,80,155);
+  text-decoration: none;
+  margin-left:         2px;
+  padding-left:        25px;
+}
+a.pdffile:hover {
+  color:rgb(0,0,0);}
+
+/* Description fichiers PostScript */
+a.psfile {
+  background-image:    url(../images/psfile.png);
+  background-position: center left;
+  background-repeat:   no-repeat;
+  font-family:         Georgia, Verdana, Arial, sans-serif;
+  border-bottom-width: thin;
+  border-bottom-style: dashed;
+  border-color:        rgb(80,80,155);
+  color:               rgb(80,80,100);
+  text-decoration: none;
+  margin-left:         2px;
+  padding-left:        25px;
+}
+a.psfile:hover {
+  color:rgb(0,0,0);}
+
+/* Description fichiers Txt */
+a.txtfile {
+  background-image:    url(../images/txtfile.png);
+  background-position: center left;
+  background-repeat:   no-repeat;
+  font-family:         Georgia, Verdana, Arial, sans-serif;
+  border-bottom-width: thin;
+  border-bottom-style: dashed;
+  border-color:        rgb(80,80,155);
+  color:               rgb(80,80,100);
+  text-decoration: none;
+  margin-left:         2px;
+  padding-left:        25px;
+}
+a.txtfile:hover {
+  color:rgb(0,0,0);}
+
+li.large {
+  padding-bottom: 5px;
+}
+
+hr.bigskip {
+  visibility:          hidden;
+  height:           0px;
+  margin-top:       12px;
+  margin-bottom:    12px;
+}
+
+hr.medskip {
+  visibility:          hidden;
+  height:           0px;
+  margin-top:       7px;
+  margin-bottom:    7px;
+}
+
+hr.smallskip {
+  visibility:          hidden;
+  height:           0px;
+  margin-top:       2px;
+  margin-bottom:    2px;
+}
+
+code {
+  color:               rgb(200,0,130);
+}
+
+select { 
+  border-style: none;
+  border-top-width: 0px;
+  border-right-width: 0px; 
+  border-bottom-width:0px; 
+  border-left-width:0px;
+}
+
+img.math {
+  vertical-align:middle;
+  border:0;           
+}

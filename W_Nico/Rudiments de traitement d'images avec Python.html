@@ -1,0 +1,824 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0045)http://www.tangentex.com/TraitementImages.htm -->
+<html xmlns="http://www.w3.org/1999/xhtml"><head><meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+    
+    <meta http-equiv="Content-Language" content="fr">
+    <meta name="author" lang="fr" content="Dominique Lefebvre"> 
+    <meta name="copyright" content="TangenteX.com"> 
+    <!-- script d'affichage des formules mathématiques -->
+    <script src="./Rudiments de traitement d&#39;images avec Python_files/MathJax.js.téléchargement" type="text/javascript"></script>
+    <link href="./Rudiments de traitement d&#39;images avec Python_files/PageStyle.css" title="TangenteX" type="text/css" media="screen" rel="Stylesheet">
+
+    <title>Rudiments de traitement d'images avec Python</title>
+    <meta http-equiv="Description" content="Rudiments de traitement d&#39;images avec Python">
+    <meta http-equiv="Keywords" content="python, image, PIL, pixel, symétrie, rotation, filtre, convolution, négatif, niveau gris, extraction contours, dominique lefebvre, tangenteX">
+  <style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 2px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 2px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: 1em}
+.MathJax_MenuRadioCheck.RTL {right: 1em; left: auto}
+.MathJax_MenuLabel {padding: 2px 2em 4px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #CCCCCC; margin: 4px 1px 0px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: Highlight; color: HighlightText}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style><style type="text/css">.MathJax_Display {text-align: center; margin: 1em 0em; position: relative; display: block!important; text-indent: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; width: 100%}
+.MathJax .merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MathJax .MJX-monospace {font-family: monospace}
+.MathJax .MJX-sans-serif {font-family: sans-serif}
+#MathJax_Tooltip {background-color: InfoBackground; color: InfoText; border: 1px solid black; box-shadow: 2px 2px 5px #AAAAAA; -webkit-box-shadow: 2px 2px 5px #AAAAAA; -moz-box-shadow: 2px 2px 5px #AAAAAA; -khtml-box-shadow: 2px 2px 5px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true'); padding: 3px 4px; z-index: 401; position: absolute; left: 0; top: 0; width: auto; height: auto; display: none}
+.MathJax {display: inline; font-style: normal; font-weight: normal; line-height: normal; font-size: 100%; font-size-adjust: none; text-indent: 0; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0; min-height: 0; border: 0; padding: 0; margin: 0}
+.MathJax:focus, body :focus .MathJax {display: inline-table}
+.MathJax.MathJax_FullWidth {text-align: center; display: table-cell!important; width: 10000em!important}
+.MathJax img, .MathJax nobr, .MathJax a {border: 0; padding: 0; margin: 0; max-width: none; max-height: none; min-width: 0; min-height: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+img.MathJax_strut {border: 0!important; padding: 0!important; margin: 0!important; vertical-align: 0!important}
+.MathJax span {display: inline; position: static; border: 0; padding: 0; margin: 0; vertical-align: 0; line-height: normal; text-decoration: none}
+.MathJax nobr {white-space: nowrap!important}
+.MathJax img {display: inline!important; float: none!important}
+.MathJax * {transition: none; -webkit-transition: none; -moz-transition: none; -ms-transition: none; -o-transition: none}
+.MathJax_Processing {visibility: hidden; position: fixed; width: 0; height: 0; overflow: hidden}
+.MathJax_Processed {display: none!important}
+.MathJax_ExBox {display: block!important; overflow: hidden; width: 1px; height: 60ex; min-height: 0; max-height: none}
+.MathJax .MathJax_EmBox {display: block!important; overflow: hidden; width: 1px; height: 60em; min-height: 0; max-height: none}
+.MathJax_LineBox {display: table!important}
+.MathJax_LineBox span {display: table-cell!important; width: 10000em!important; min-width: 0; max-width: none; padding: 0; border: 0; margin: 0}
+.MathJax .MathJax_HitBox {cursor: text; background: white; opacity: 0; filter: alpha(opacity=0)}
+.MathJax .MathJax_HitBox * {filter: none; opacity: 1; background: transparent}
+#MathJax_Tooltip * {filter: none; opacity: 1; background: transparent}
+@font-face {font-family: MathJax_Main; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Main-bold; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Bold.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Bold.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Main-italic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Main-Italic.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Main-Italic.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Math-italic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Math-Italic.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Math-Italic.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Caligraphic; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Caligraphic-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Caligraphic-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size1; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size1-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size1-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size2; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size2-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size2-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size3; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size3-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size3-Regular.otf?V=2.7.0') format('opentype')}
+@font-face {font-family: MathJax_Size4; src: url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/woff/MathJax_Size4-Regular.woff?V=2.7.0') format('woff'), url('http://cdn.mathjax.org/mathjax/2.7-latest/fonts/HTML-CSS/TeX/otf/MathJax_Size4-Regular.otf?V=2.7.0') format('opentype')}
+.MathJax .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+  <body><div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div><div id="MathJax_Message" style="display: none;"></div>
+    <div id="retour"> 
+        <a href="http://www.tangentex.com/index.htm"><img width="21" height="21" border="0" src="./Rudiments de traitement d&#39;images avec Python_files/FlecheBleueDroite.gif" alt="Retour"></a> 
+    </div>
+    
+    <div id="corps">
+
+      <h2>Rudiments de traitement d'images avec Python</h2>
+
+      <h3>Qu'est-ce qu'une image</h3>
+          <p>
+              Quand on y réfléchit, définir une image n'est pas si facile ! Je dirais, de façon imparfaite, que c'est un ensemble de points qui représentent une forme
+              au sens large du terme (paysage, personne, objet, dessin, etc.). La chose importante est que ce n'est pas un objet continu au sens mathématique du terme
+              mais discret. Les points d'une image sont généralement appelés des pixels (du terme anglais "picture element") mais rigoureusement ce terme devrait être
+              réservé aux images numérisées.
+          </p>
+          <p>
+              Une image peut être représentée sous la forme d'une matrice NxM, où chaque élément serait un pixel. N et M définissent la taille de la matrice et donc la taille
+              de l'image numérisée encodée par la matrice. Son traitement va se résumer pour l'essentiel à du calcul matriciel et de la manipulation d'éléments d'une matrice.
+          </p>
+          <p>
+              Un pixel est un nombre, qui code son aspect dans l'image, sa couleur et parfois sa transparence. La nature informatique du nombre, short, integer, ou long, dépend donc 
+              du nombre de couleurs que l'on veut coder. Par exemple, si l'on veut coder une image en noir et blanc, un seul bit est suffisant pour exprimer un pixel. Si l'on désire 
+              coder une image en 256 couleurs, il faudra 8 bits et pour 64K couleurs il faudra 16 bits. Ainsi, une image de 64K couleurs sera codée par une matrice de pixels, chacun 
+              étant codé par un nombre de 16 bits (en Python un entier sera donc largement suffisant..). 
+          </p>
+          <p>
+              Pour résumer, dans une image, un pixel est caractérisé par sa position qui est indiquée par les indices ligne et colonne de la matrice et par sa valeur, qui code
+              la couleur du pixel.
+          </p>
+
+
+      <h4>Image et fichier image</h4>
+          <p>
+              Une erreur extrémement répandue jusque dans les cours de traitement d'images est de confondre l'image et le fichier qui contient, entre autre, l'image. On lit
+              souvent des phrases du type "une image jpeg" ou "une image png": ce sont des abus de langage ! Ce n'est pas l'image, qui est je le rappelle une matrice de nombres, qui est 
+              jpeg ou png, c'est le fichier qui contient l'image !
+          </p>
+          <p>
+              Quelle est la différence ? Un fichier "image" contient plus qu'une image. Il contient dans son entête des données, plus exactement des métadonnées, qui décrivent la forme, la
+              dimension, les traitements de compressions éventuellement subis par l'image, son auteur, la date de création et beaucoup d'autres données. D'ailleurs, si vous êtes curieux,
+              vous pouvez calculer la taille d'une image donnée en octets (assez facile) puis la comparer à la taille en octets du fichier qui stocke l'image : c'est instructif !
+          </p>
+          <p>
+              Lorsqu'on parle d'une image au format jpeg, on désigne en fait un fichier avec une extension .jpeg ou .jpg, qui contient une image ayant subit une compression avec un algorithme
+              jpeg. Les caractéristiques de la compression sont indiquées dans les métadonnées du fichier, mais pas dans la matrice qui code l'image ! C'est la même chose pour les autres formats
+              de fichiers images, que je vais lister ci-dessous.
+          </p>
+      
+
+      <h4>les principaux formats de fichiers images</h4>
+          <p>
+              Ils sont très nombreux, aussi, je ne vais citer que les formats les plus courants, ceux que vous voyez tous les jours:
+          </p>
+      <ul>
+          <li>jepg (Joint Photographic Expert Group): C'est un format de compression d'images avec perte de données, sans doute le plus répandu. Les images compressées peuvent être noir&amp;blanc
+              ou couleur, avec 8, 16 ou 32 bits par pixel. Son grand avantage est de produire des images de faible poids (volume de fichier petit).</li>
+          <li>png (Portable Network Graphic) : C'est un format de compression d'images, sans perte de données, moins efficace que jpeg. Les couleurs sont codées sur 24 bits, donc 16,7 millions
+              de couleurs. Il est très utilisé sur le net car il permet de la compression en gardant une très bonne qualité d'image.</li>
+          <li>gif (Graphics Interchange Format) : format d'image sans compression, mais avec seulement 8 bits par pixel (codage de 256 couleurs). Les images sont de taille faible. On le rencontre
+              beaucoup sur le net.</li>
+          <li>tiff (Tagged Image File Format) : format d'image sans compression, mais avec 16 ou 32 bits par pixel, donc des images très volumineuses. Il n'est pas utilisé sur le net mais
+              pour des usages professionnels comme les imprimeurs ou les publicitaires.</li>
+          <li>bmp (BitMap): le format ancestral, sans compression de données, avec des images énormes. A oublier, sauf besoins locaux précis.</li>
+      </ul>
+      <p>
+          En traitement d'images, il se peut que vous ayez besoin d'informations sur l'image stockée dans un fichier image. Vous les trouverez dans l'en-tête du fichier. Certaines librairies 
+          d'imagerie permettent d'extraire ces en-têtes et de les décomposer. Vous pouvez aussi chercher la description des en-têtes de fichier et lire vous-même ces informations.
+      </p>
+
+      <h4>Le traitement d'images en physique</h4>    
+      <p>
+          Certains d'entre vous se demanderont peut-être pourquoi aborder ce sujet sur un site de physique numérique ? Il est vrai que les images interviennent peu en simulation, bien que l'on soit
+          amené à en construire parfois. Mais le sujet n'est pas secondaire en physique expérimentale et en ingénierie.  
+          <br>
+          Certaines disciplines de la physique sont grandes consommatrices de traitement d'images. L'astronomie par exemple, qui recueille dans ses télescopes des images brutes, qui subissent
+          toujours des traitements complexes pour éliminer le bruit dû aux instruments, augmenter les contrastes, exhiber les contours ou analyser la colorimétrie. Même les astronomes amateurs
+          disposent de logiciels de traitement d'images très puissants. La physique des particules utilise aussi ces traitements pour "dépatouiller" les images des traces provenant des détecteurs. 
+      </p>
+      <p>
+          Même si le traitement d'images n'est pas de la simulation, il a toute sa place, comme plus généralement le traitement du signal, dans l'arsenal du physicien numéricien.
+      </p>
+              
+          
+      <h3>Les outils Python pour le traitement d'images</h3>
+
+      <h4>Notre image de test</h4> 
+          <p>
+              Pour nos manipulations, nous travaillerons sur une image couleur au format RGB, c'est à dire que chaque pixel est codé par un 3-tuple (R,G,B) qui 
+              indique le poids, compris entre 0 et 255, de chaque canal de couleur : Red, Green et Blue. Il aurait été beaucoup plus simple de travailler sur une
+              image en niveau de gris avec des pixels codés sur un seul entier, mais cela aurait été moins drôle !
+          </p>  
+          <p>
+              Voici l'image en question :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" alt="Hawkeye">
+          <p>
+              Vous aurez reconnu un Hawkeye E-2C de la flottille 4F, un AWACS embarqué sur porte-avion. Les connaisseurs auront reconnu un "chien jaune" du R91 "Charles de Gaulle".
+          </p>
+
+
+      <h4>La librairie Python PIL</h4>
+          <p>
+              La librairie PIL (Python Imaging Library) fournit les outils nécessaires pour les manipulations d'images que nous aborderons dans cette page. Ces manipulations sont simples 
+              et il existe des libraries plus complètes pour aborder les fonctions avancées de traitement des images. Vous trouverez une description des fonctions disponibles dans PIL (1.1.7) 
+              sur ce <a href="http://effbot.org/imagingbook/pil-index.htm">site</a> et bien d'autres...
+          </p>
+          <p>
+              Pour charger la librairie PIL dans sa dernière version 1.1.7, rendez-vous sur le site officiel de <a href="http://www.pythonware.com/products/pil/">PIL</a>. Il suffit de 
+              choisir sa version de Python (2.7 pour moi) et de télécharger et d'exécuter le programme d'installation si vous êtes sous Windows. Sous Mac, il faut télécharger le source et
+              le compiler sur votre Mac.
+          </p>
+          <p>
+              Pour information, PIL n'est plus maintenue depuis 2009 et un fork a été produit en 2010 qui s'appelle Pillow (pour supporter Python 3 surtout...). Mais beaucoup de monde continue 
+              d'utiliser PIL, qui fonctionne très bien en Python 2.7 et Pillow est trop proche, sans apporter grand chose...
+          </p>
+          <p>
+              A titre d'introduction , voyons le script Python TIProg1.py qui ouvre et affiche une image et ses principales caractéristiques (taille, compression, mode vidéo):
+          </p>
+          <p class="style2">import sys</p>
+          <p class="style2">from PIL import Image</p>
+          <p class="style2"># ouverture du fichier image</p>
+          <p class="style2">ImageFile = 'e:\PhysNumWeb1\images\hawkeye.jpg'</p>
+          <p class="style2">try:</p>
+          <p class="style2">&nbsp; img = Image.open(ImageFile)</p>
+          <p class="style2">except IOError:</p>
+          <p class="style2">&nbsp; print 'Erreur sur ouverture du fichier ' + ImageFile</p>
+          <p class="style2">&nbsp; sys.exit(1)</p>
+          <p class="style2"># affichage des caractéristiques de l'image</p>
+          <p class="style2">print img.format,img.size, img.mode</p>
+          <p class="style2"># affichage de l'image</p>
+          <p class="style2">img.show()</p>
+          <p class="style2"># fermeture du fichier image</p>
+          <p class="style2">img.close()</p>
+          <p>
+              Les librairies utilisées sont PIL pour les fonctions de gestion des images et sys pour la gestion des erreurs à l'ouverture du fichier.
+          </p>
+          <p>
+              Puis vient la séquence d'ouverture du fichier contenant l'image. Attention au chemin d'accès du fichier, vous devrez sans doute le modifier pour l'adapter à votre machine !
+              Notez l'usage des intructions try et except : elles permettent de détecter et d'avertir en cas de problème à l'ouverture du fichier, par exemple lorsque le programme ne 
+              trouve pas ou ne peut pas ouvrir le fichier. Il est vivement recommandé lorsque vous procédez à des accès fichiers de détecter et traiter les exceptions (erreurs) !
+          </p>
+          <p>
+              La méthode open() retourne un pointeur sur l'image, que je stocke dans img. Il s'agit d'un pointeur sur une instance de classe Image, qui nous permettra d'accéder à toutes
+              les données de l'image.
+          </p>
+          <p>
+              Par exemple, pour accéder et afficher dans la console Python le format, la taille et le mode de l'image, je les désignerai simplement par img.format, img.size et ing.mode ! 
+              Attention, img.size est un tuple Python, il contient deux données : la taille en lignes et en colonnes. On verra plus loin comment récupérer individuellement ces deux données.
+          </p>
+          <p>
+              L'affichage de l'image est des plus simples : j'utilise la méthode img.show(). Celle-ci se contente d'appeller le programme d'affichage d'images par défaut de votre OS, Windows ou 
+              OSX, ce qui implique qu'il existe. Si ce n'est pas le cas, il faut en installer un !
+          </p>
+          <p>
+              Enfin, pensez à fermer le fichier avec img.close(), afin de libérer les ressources système !
+          </p>
+          <p>
+              Voilà, c'est simple et de bon goût ! Je vais utiliser cette trame de programme dans tous les scripts qui suivent.
+          </p>
+
+
+        <h4>Utiliser les librairies classiques scipy et matplotlib</h4>
+        <p>
+            Il est aussi possible d'utiliser nos librairies standards SciPy et MatPlotLib pour lire et afficher une image. Le script Python TIProg2.py en donne un exemple. Vous noterez qu'ici,
+            l'image s'affiche sur la console Python et non dans une fenêtre particulière gérée par le programme par défaut d'affichage de votre OS. Cela peut dans certains cas, présenter un
+            intérêt.
+        </p>
+          <p class="style2"># importation des librairies</p>
+          <p class="style2">from scipy import misc</p>
+          <p class="style2">import matplotlib.pyplot as plt</p>
+          <p class="style2"># ouverture du fichier image</p>
+          <p class="style2">ImageFile = 'e:\PhysNumWeb1\images\hawkeye.jpg'</p>
+          <p class="style2">try:</p>
+          <p class="style2">&nbsp; img = misc.imread(ImageFile)</p>
+          <p class="style2">except IOError:</p>
+          <p class="style2">&nbsp; print 'Erreur sur ouverture du fichier ' + ImageFile</p>
+          <p class="style2">&nbsp; sys.exit(1)</p>
+          <p class="style2"># affichage des caractéristiques de l'image</p>
+          <p class="style2">print img.shape</p>
+          <p class="style2"># affichage de l'image</p>
+          <p class="style2">plt.imshow(img)</p>
+          <p class="style2">plt.axis('off')</p>
+          <p class="style2">plt.show()</p>
+          <p>
+              Le principe de ce script est exactement le même que le précédent, hormis les librairies utilisées.
+          </p>
+          <p>
+              Dans la suite de la page, j'utiliserai plutôt la librairie PIL, sachant que vous pourrez porter très facilement les exemples pour utiliser SciPy si l'envie vous en prenait.
+          </p>
+
+
+          <h3>Quelques opérations sur les images avec Python</h3>
+
+                   
+          <h4>Manipulations simples sur une image</h4>
+          
+          <h5>Inversion d'une image</h5>
+          <p>
+              Il existe une méthode de la classe ImageChops qui permet de produire le négatif d'une image. Il s'agit de la méthode ImageChops.invert(). Cependant, on peut essayer
+              de créer un petit script qui assure la même transformation.
+          </p>
+          <p>
+              Techniquement, cette transformation est simple : il suffit de calculer le complément à 255 (au blanc) pour chaque composante R,G et B d'un pixel. Il faut donc parcourir
+              tous les pixels de l'image et leur appliquer cette transformation.
+          </p>
+          <p>
+              Le script TIProgNégatif.py se présente comme suit, dans sa partie traitement, sachant que la partie ouverture du fichier image est inchangée. Je commence par récupérer
+              le nombre de lignes et de colonnes de l'image. Une précision : le pixel en haut à gauche est d'indice (0,0) et celui en bas à droite (colonne-1,ligne-1).
+          </p>
+          <p class="style2">colonne,ligne = img.size</p>
+          <p>
+              Je créé une image de mêmes caractéristiques que l'image source pour stocker l'image issue du traitement:
+          </p>
+          <p class="style2">imgF = Image.new(img.mode,img.size)</p>
+          <p>
+              Puis vient la boucle de traitement, en fait deux boucles imbriquées qui parcourent l'image d'abord selon les lignes, puis selon les colonnes. Ce sens
+              est conventionnel. Pour chaque pixel, je lis son 3-tuple avec la méthode getpixel(). Je calcule la valeur du nouveau pixel en appliquant la transformation, dans ce cas
+              le complément à 255 pour chaque composante du pixel. Enfin, je créé le pixel transformé dans l'image finale imgF avec la méthode putpixel(). Ce qui nous donne le code :
+          </p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = img.getpixel((j,i)) # récupération du pixel</p>
+          <p class="style2">&nbsp; &nbsp; # on calcule le complement à MAX pour chaque composante - effet négatif</p>
+          <p class="style2">&nbsp; &nbsp; p = (255 - pixel[0], 255 - pixel[1], 255 - pixel[2])</p>
+          <p class="style2">&nbsp; &nbsp; # composition de la nouvelle image</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((j,i), p)</p>
+          <p>
+              Le script s'achève par l'affichage de l'image en négatif puis la fermeture de l'image originale par les instructions :
+          </p>
+          <p class="style2">imgF.show()</p>
+          <p class="style2">img.close()</p>
+          <p>
+              J'ai laissé en commentaire la ligne d'appel à la méthode PIL :  imgF = ImageChops.invert(img), afin que vous puissiez l'utiliser et comparer les résultats.
+          </p>
+          <p>
+              Retenez bien ce schéma de code, car nous le retrouverons dans tous les scripts qui suivent. Seul l'algorithme de la transformation appliquée aux pixels sera différent.
+          </p>
+          <p>
+              Voilà les résultats obtenus par le script TIProgNégatif.py :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TINegatif.png" style="float:left; width: 480px; height: 350px" alt="Négatif">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TINegatifPIL.png" style="float:right; width: 480px; height: 350px" alt="Négatif PIL">
+          <div style="clear:both;"></div>
+          <p>
+              L'image de gauche est obtenue avec mon algorithme, celle de droite avec la méthode ImageChops.invert(). Vous constatez qu'il y a vraiment peu de différence ! Par contre,
+              vous aurez aussi constaté que le temps d'exécution de la méthode PIL est au moins dix fois plus court ! Cela est du à mon utilisation des méthodes getpixel() et putpixel() 
+              qui ne sont pas des plus efficaces ! Nous reviendrons sur cet aspect des choses plus loin.
+          </p>
+
+
+          <h5>Symétrie d'une image</h5>
+          <p>
+              Les opérations de transformation géométrique sont relativement simples, ne consistant qu'en un déplacement de pixels, sans modification. Ici, nous voulons obtenir un effet
+              miroir, c'est à dire une symétrie par rapport à un axe vertical, le bord droit de l'image en l'occurence.
+          </p>
+          <p>
+              Le script TIProgSymétrie.py, qui réalise cette opération s'écrit, pour sa partie traitement :
+          </p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = img.getpixel((j,i))</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((colonne-j-1,i), pixel)</p>          
+          <p>
+              Le reste du script est conforme au schéma de code que nous avons déjà vu.
+          </p>
+          <p>
+              Vous pouvez également utiliser la méthode transpose() de PIL que j'ai laissé en commentaire dans le script :
+          </p>
+          <p class="style2">imgF = img.transpose(Image.FLIP_LEFT_RIGHT)</p>
+          <p>
+              Notre image de HawkEye, en reflet miroir :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" style="float:left; width: 480px; height: 350px" alt="HawkEye">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TIMiroir.png" style="float:right; width: 480px; height: 350px" alt="Miroir">
+          <div style="clear:both;"></div>
+
+
+          <h5>Rotation d'une image</h5>
+          <p>
+              La transformation par rotation d'une image est plus complexe, dans la mesure où il existe plusieurs options dans le choix du centre de rotation, généralement le centre 
+              de l'image, et de la conservation ou non de la taille de l'image. La transformation est toujours basée sur l'application de la matrice de rotation standard sur l'ensemble
+              de l'image. Dans les méthodes évoluées, comme celle de PIL, on applique ensuite des filtres pour atténuer le crénelage provoqué par la rotation.
+          </p>
+          <p>
+              Nous pouvons aussi utilisé la méthode PIL rotate() avec ou sans argument autre que l'angle (en degrés) pour opérer une rotation. Voyons ce que cela donne sans argument
+              et avec un angle de rotation de 90° dans le sens trigonométrique (image de gauche). L'appel de la méthode est :
+          </p>
+          <p class="style2">imgF = img.rotate(90)</p>
+          <p>
+              Puis avec un filtrage bicubique et une adaptation de la taille de l'image (image de droite) :
+          </p>
+          <p class="style2">imgF = img.rotate(90, Image.BICUBIC, True)</p>
+
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TIRotation90_1.png" style="float:left; width: 480px; height: 350px" alt="Rotation 90° sans filtrage">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TIRotation90_2.png" style="float:right; width: 350px; height: 480px" alt="Rotation 90° avec filtrage">
+          <div style="clear:both;"></div>
+          <p>
+              Il est certain que l'image de droite est un peu plus convaincante...
+          </p>
+          <p>
+              Le script TIProgRotate.py réalise la même transformation : rotation de PI/2 en sens trigonométrique avec redimensionnement de l'image. Il est basé sur le schéma de
+              code habituel, sauf pour la définition de l'image finale, qui est une transposée de l'image initiale :
+          </p>
+          <p class="style2">imgF = Image.new(img.mode,(ligne,colonne))</p>
+          <p>
+              La boucle de traitement revient à calculer la transposée d'une matrice :
+          </p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = img.getpixel((j,i))</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((i,j), pixel)</p>
+          <p>
+              Evidemment, me direz-vous, j'ai choisi un cas très simple : une rotation de PI/2... Vous pouvez toujours, pour l'exercice, écrire un algorithme qui effectue une rotation
+              quelconque. Et vous vous apercevrez dans ce cas de l'utilité d'un filtre anti-crénelage !
+          </p>
+
+          <h5>Fusionner deux images</h5>
+          <p>
+              Il s'agit ici de fusionner deux images couleur qui peuvent être de dimensions différentes. Pour chaque pixel de l'image fusionnée, chacune de ses composantes est égale à la 
+              composante de valeur la plus élevée des deux pixels des images à fusionner.
+          </p>
+          <p>
+              Dans le script TIProgFusion.py, nous commencerons par ouvrir les deux images et à récupérer leurs dimensions, comme d'habitude. Puis nous calculerons les dimensions de l'image
+              fusionnée en posant qu'elles seront égales aux plus petites dimensions des deux images à fusionner :
+          </p>
+          <p class="style2">colonne = min(colonne1, colonne2)</p>
+          <p class="style2">ligne = min(ligne1,ligne2)</p>
+          <p>
+              Puis après avoir créé l'image fusionnée, nous déroulerons la boucle de traitement de chaque pixel :
+          </p>      
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; p1 = img1.getpixel((j,i))</p>
+          <p class="style2">&nbsp; &nbsp; p2 = img2.getpixel((j,i))</p>
+          <p class="style2">&nbsp; &nbsp; p = (max(p1[0],p2[0]),max(p1[1],p2[1]),max(p1[2],p2[2]) )</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((j,i), p)</p>
+          <p>
+              Rien de bien particulier à signaler... Et voici le résultat obtenu :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeyeFusion.png" alt="Fusion d&#39;un Hawkeye et d&#39;un F14">
+          <p>
+              Le mariage de deux des plus beaux appareils d'aviation embarquée...
+          </p>    
+        
+                
+          <h4>Transformer une image couleur en niveaux de gris</h4>
+          <p>
+              Il existe une routine PIL, ImageOps.grayscale(), qui transforme une image en couleurs en une image en niveaux de gris. Mais pourquoi ne pas tenter d'écrire un script Python
+              qui fasse cela pour nous ?
+          </p>
+          <p>
+              Intuitivement, on "sent" que pour obtenir le niveau de gris d'un pixel couleur, il faudrait mélanger les composantes du 3-tupel(R,G,B). De vieux souvenirs de cours
+              de colorimétrie en optique. Soit, mais dans quelles proportions ? A parts égales ? Si vous faites l'expérience, en modifiant le script ci-dessous, vous verrez qu'on obtient bien
+              une image en niveaux de gris, mais avec un je ne sais quoi de pas convaincant !
+          </p>
+          <p>
+              En cherchant, j'ai trouvé que les proportions recherchées étaient normalisées : c'est la CIE (Commission Internationale de l'Eclairage) qui normalise ce genre de chose, 
+              histoire de savoir de quoi l'on parle. Et dans sa norme 709, elle dit que pour les images naturelles les poids respectifs doivent être 0.2125 * R + 0.7154 * G +  0.0721 * B. 
+              Nous allons donc utiliser cette répartition dans notre code.
+          </p>
+          <p>
+              Autre chose, qui semble évident : dans un pixel en niveaux de gris, les composantes du 3-tuples ont la même valeur, celle calculée ci-dessus.
+          </p>
+
+          <p>
+              Le partie traitement du script TIProgNiveauGris.py reprend le schéma de code que nous avons vu plus haut. Pour chaque pixel, je lis son 3-tuple et calcule à partir des 
+              composantes la valeur du gris en appliquant simplement la formule de la CIE 709. Enfin, je recompose un 3-tuple de gris, avec 3 composantes identiques et égales à gris 
+              et je créé le pixel gris dans l'image finale imgF. Ce qui nous donne le code :
+          </p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = img.getpixel((j,i)) # récupération du pixel</p>
+          <p class="style2">&nbsp; &nbsp; # calcul du poids de chaque composante du gris dans le pixel (CIE709)</p>
+          <p class="style2">&nbsp; &nbsp;  gris = int(0.2125 * pixel[0] + 0.7154 * pixel[1] +  0.0721 * pixel[2])</p>
+          <p class="style2">#        gris = int(0.33 * pixel[0] + 0.33 * pixel[1] +  0.33 * pixel[2])</p>
+          <p class="style2">&nbsp; &nbsp; p = (gris,gris,gris)</p>
+          <p class="style2">&nbsp; &nbsp; # composition de la nouvelle image</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((j,i), p)</p>
+          <p>
+              J'ai laissé en commentaire le calcul du gris par pondération égale afin que vous puissiez faire l'essai. J'ai aussi laissé en commentaire la ligne d'appel à la 
+              routine PIL :  imgF = ImageOps.grayscale(img), afin que vous puissiez l'utiliser et comparer les résultats.
+          </p>
+          <p>
+              Voilà les résultats obtenus :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TIGris.png" style="float:left; width: 480px; height: 350px" alt="Niveaux de gris CIE709">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/TIGrisPIL.png" style="float:right; width: 480px; height: 350px" alt="Niveaux de gris PIL">
+          <div style="clear:both;"></div>
+          <p>
+              L'image de gauche est obtenue avec mon algorithme de traitement des gris (celui de la CIE709 !) et l'image de droite est produite par la routine grayscale() de PIL. Elles sont
+              très similaires, mon image étant un peu plus sombre que celle de PIL. Je ne sais pas quelle est la pondération utilisée par PIL. Vous constaterez aussi que le temps d'exécution 
+              de la routine PIL est beaucoup plus court (0,02 contre 3,38 s), ici aussi ! 
+          </p>
+          <p>
+              Essayons de faire mieux ! Dans le script TIProgNiveauGrisSpeed.py, j'utilise la méthode load() pour charger l'image dans le tableau TabPixel. Puis j'accède aux pixels de la matrice,
+              en utilisant l'affectation classique au lieu de la méthode getpixel(). Le code devient:
+          </p>
+          <p class="style2">TabPixel = img.load()</p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = TabPixel[j,i] # récupération du pixel</p>
+          <p class="style2">&nbsp; &nbsp; # calcul du poids de chaque composante du gris dans le pixel (CIE709)</p>
+          <p class="style2">&nbsp; &nbsp;  gris = int(0.2125 * pixel[0] + 0.7154 * pixel[1] +  0.0721 * pixel[2])</p>
+          <p class="style2">#        gris = int(0.33 * pixel[0] + 0.33 * pixel[1] +  0.33 * pixel[2])</p>
+          <p class="style2">&nbsp; &nbsp; p = (gris,gris,gris)</p>
+          <p class="style2">&nbsp; &nbsp; # composition de la nouvelle image</p>
+          <p class="style2">&nbsp; &nbsp; TabPixel[j,i] = p</p>
+          <p>
+              Ici, je n'ai pas crée de nouvelle image, j'ai seulement modifié l'image existant pointée par img. J'affiche donc img par :
+          </p>
+          <p class="style2">img.show()</p>
+          <p>
+              Comme vous pourrez le constater, j'obtiens le même résultat, mais en 0,71 s ! C'est mieux que 3,38 s, mais pas aussi bien que PIL. Sans doute que leurs méthodes sont écrites
+              en C compilé !
+          </p>
+
+
+          <h4>Filtrage</h4>
+          <p>
+              Le filtrage est une opération fondamentale en traitement du signal et donc en traitement des images. Il existe deux types de filtrage d'un signal: le filtrage spatial et le
+              filtrage fréquentiel. Concernant une image, et dans les limites du scope de TangenteX.Com, nous nous limiterons au filtrage spatial, c'est à dire sur les pixels, d'une image.
+          </p>
+          <p>
+              On peut assimiler un filtre à un opérateur qui réaliserait une opération sur un pixel en fonction de la valeur de ce pixel et des pixels de son voisinage. En ce sens, les
+              transformations que nous avons abordé plus haut sont des filtrages, par exemple le passage au négatif ou le passage en niveau de gris. L'opérateur peut être linéaire ou non 
+              linéaire. On obtiendra donc des filtres linéaires ou non linéaires en fonction de la nature de l'opérateur.
+          </p>
+ 
+          <h5>Le filtrage des couleurs</h5>
+          <p>
+              C'est un exemple simple de filtrage, couramment pratiqué en photographie : on ne garde qu'une seule couleur dans une image. Il peut s'agir par exemple de ne conserver que le
+              canal rouge, vert ou bleu dans une image. Cette opération est généralement destinée à faire ressortir des détails dans une image.
+          </p>
+          <p>
+              Techniquement ce filtrage est très simple. Le script TIProgFiltre1.py filtre l'image de notre Hawkeye pour n'en conserver que la composante verte. La boucle de traitement qui
+              permet cette opération est des plus simples :
+          </p>
+          <p class="style2">for i in range(ligne):</p>
+          <p class="style2">&nbsp; for j in range(colonne):</p>
+          <p class="style2">&nbsp; &nbsp; pixel = img.getpixel((j,i))</p>
+          <p class="style2">&nbsp; &nbsp; # filtrage couleur - filtre vert</p>
+          <p class="style2">&nbsp; &nbsp; p = (0,pixel[1],0)</p>
+          <p class="style2">&nbsp; &nbsp; imgF.putpixel((j,i), p)</p>
+          <p>
+              On se contente de mettre à zéro les composantes R et B du pixel ! Voyons ce que cela donne :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" style="float:left; width: 480px; height: 350px" alt="HawkEye">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeyevert.png" style="float:right; width: 480px; height: 350px" alt="HawkEye vert">
+          <div style="clear:both;"></div>
+          <p>
+              Vous pouvez bien sur adapter ce filtre pour d'autres couleurs, simples (R, G et B) ou plus complexes.
+          </p>
+
+
+          <h5>Les filtres par convolution</h5>
+          <p>
+              En filtrage d'images, le plus classique est d'appliquer sur un pixel un opérateur qui dépend du voisinage de ce pixel. La valeur du pixel sera modifiée en fonction de la valeur
+              de ses voisins immédiats. Il s'agit de filtrage par convolution, car il utilise un outil du calcul matriciel qui s'appelle le produit de convolution.
+          </p>
+          <p>
+              Cette technique de filtrage consiste à considérer notre image comme une matrice de pixels que l'on va convoluer avec une autre matrice, plus petite, qui est le masque de convolution.
+              C'est cette matrice qui va décider de la nature du filtre. En traitement du signal, on dit que cette matrice est la réponse impulsionnelle du filtre. Ici, nous allons utiliser une
+              matrice 3x3, dont on fera varier la valeur des éléments pour obtenir différents types de filtre.
+          </p>
+          <p>
+              Analysons le script TIProgFiltreConvolution.py qui est un exemple de filtre par convolution. Tout d'abord, commençons par définir le masque de convolution de notre filtre. 
+              Techniqument, cela consiste à initialiser une matrice que j'appelerai Filtre :
+          </p>
+          <p class="style2">Filtre = [[-1,-2,-1],[-2,16,-2],[-1,-2,-1]]</p>
+          <p>
+              Les coefficients du masque correspondent à un filtre de constraste, mais nous en verrons d'autres plus loin. En fait, définir un filtre, c'est modifier les coefficients de cette
+              matrice, le reste du programme reste inchangé, ce qui est plutôt pratique.
+          </p>
+          <p>
+              Le coeur du programme est la fonction Convolution2D dont voici le code :
+          </p>
+          <p class="style2">def Convolution2D(Filtre,TPix,x,y):</p>
+          <p class="style2">&nbsp; p0 = p1 = p2 = 0</p>
+          <p class="style2">&nbsp; for i in range(-1,1):</p>
+          <p class="style2">&nbsp;&nbsp; for j in range(-1,1):</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p0 += Filtre[i+1][j+1]*TPix[y+i,x+j][0]</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p1 += Filtre[i+1][j+1]*TPix[y+i,x+j][1]</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p2 += Filtre[i+1][j+1]*TPix[y+i,x+j][2]</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; # normalisation des composantes</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p0 = int(p0/9.0)</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p1 = int(p1/9.0)</p>
+          <p class="style2">&nbsp;&nbsp;&nbsp; p2 = int(p2/9.0)</p>
+          <p class="style2">&nbsp; # retourne le pixel convolué</p>
+          <p class="style2">&nbsp; return (p0,p1,p2)</p>
+          <p>
+              Nous passons à la fonction Convolution2D plusieurs paramètres : le masque de convolution (la matrice Filtre); la matrice image contenue dans TPix et les coordonnées (x,y) du 
+              pixel à convoluer.
+          </p>
+          <p>
+              La fonction contient essentiellement l'implémentation de l'algorithme de convolution. Mathématiquement, pour un filtre de dimensions 3x3, la convolution du pixel TPix(x,y) s'écrit:
+              <br>
+              <span class="MathJax_Preview" style="color: inherit; display: none;"></span><span class="MathJax" id="MathJax-Element-1-Frame" tabindex="0" data-mathml="&lt;math xmlns=&quot;http://www.w3.org/1998/Math/MathML&quot;&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;P&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mfrac&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mn&gt;9&lt;/mn&gt;&lt;/mfrac&gt;&lt;munderover&gt;&lt;mo&gt;&amp;#x2211;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/munderover&gt;&lt;munderover&gt;&lt;mo&gt;&amp;#x2211;&lt;/mo&gt;&lt;mrow class=&quot;MJX-TeXAtom-ORD&quot;&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mo&gt;&amp;#x2212;&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/mrow&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;/munderover&gt;&lt;mi&gt;F&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;l&lt;/mi&gt;&lt;mi&gt;t&lt;/mi&gt;&lt;mi&gt;r&lt;/mi&gt;&lt;mi&gt;e&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;1&lt;/mn&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;mo&gt;.&lt;/mo&gt;&lt;mi&gt;T&lt;/mi&gt;&lt;mi&gt;P&lt;/mi&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;(&lt;/mo&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;i&lt;/mi&gt;&lt;mo&gt;,&lt;/mo&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mi&gt;j&lt;/mi&gt;&lt;mo stretchy=&quot;false&quot;&gt;)&lt;/mo&gt;&lt;/math&gt;" role="presentation" style="position: relative;"><nobr aria-hidden="true"><span class="math" id="MathJax-Span-1" style="width: 37.427em; display: inline-block;"><span style="display: inline-block; position: relative; width: 29.673em; height: 0px; font-size: 126%;"><span style="position: absolute; clip: rect(1.041em 1029.55em 2.811em -999.997em); top: -2.195em; left: 0em;"><span class="mrow" id="MathJax-Span-2"><span class="mi" id="MathJax-Span-3" style="font-family: MathJax_Math-italic;">T<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.125em;"></span></span><span class="mi" id="MathJax-Span-4" style="font-family: MathJax_Math-italic;">P<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.125em;"></span></span><span class="mi" id="MathJax-Span-5" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-6" style="font-family: MathJax_Math-italic;">x</span><span class="mo" id="MathJax-Span-7" style="font-family: MathJax_Main;">(</span><span class="mi" id="MathJax-Span-8" style="font-family: MathJax_Math-italic;">x</span><span class="mo" id="MathJax-Span-9" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-10" style="font-family: MathJax_Math-italic; padding-left: 0.186em;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-11" style="font-family: MathJax_Main;">)</span><span class="mo" id="MathJax-Span-12" style="font-family: MathJax_Main; padding-left: 0.308em;">=</span><span class="mfrac" id="MathJax-Span-13" style="padding-left: 0.308em;"><span style="display: inline-block; position: relative; width: 0.491em; height: 0px; margin-right: 0.125em; margin-left: 0.125em;"><span style="position: absolute; clip: rect(3.361em 1000.31em 4.216em -999.997em); top: -4.454em; left: 50%; margin-left: -0.18em;"><span class="mn" id="MathJax-Span-14" style="font-size: 70.7%; font-family: MathJax_Main;">1</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(3.361em 1000.31em 4.216em -999.997em); top: -3.66em; left: 50%; margin-left: -0.18em;"><span class="mn" id="MathJax-Span-15" style="font-size: 70.7%; font-family: MathJax_Main;">9</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(0.858em 1000.49em 1.285em -999.997em); top: -1.34em; left: 0em;"><span style="display: inline-block; overflow: hidden; vertical-align: 0em; border-top: 1.3px solid; width: 0.491em; height: 0px;"></span><span style="display: inline-block; width: 0px; height: 1.102em;"></span></span></span></span><span class="munderover" id="MathJax-Span-16" style="padding-left: 0.186em;"><span style="display: inline-block; position: relative; width: 2.811em; height: 0px;"><span style="position: absolute; clip: rect(3.117em 1000.98em 4.46em -999.997em); top: -4.026em; left: 0em;"><span class="mo" id="MathJax-Span-17" style="font-family: MathJax_Size1; vertical-align: 0em;">&#8721;</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(3.361em 1000.43em 4.216em -999.997em); top: -4.515em; left: 1.041em;"><span class="mn" id="MathJax-Span-18" style="font-size: 70.7%; font-family: MathJax_Main;">1</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(3.361em 1001.77em 4.277em -999.997em); top: -3.721em; left: 1.041em;"><span class="texatom" id="MathJax-Span-19"><span class="mrow" id="MathJax-Span-20"><span class="mi" id="MathJax-Span-21" style="font-size: 70.7%; font-family: MathJax_Math-italic;">i</span><span class="mo" id="MathJax-Span-22" style="font-size: 70.7%; font-family: MathJax_Main;">=</span><span class="mo" id="MathJax-Span-23" style="font-size: 70.7%; font-family: MathJax_Main;">&#8722;</span><span class="mn" id="MathJax-Span-24" style="font-size: 70.7%; font-family: MathJax_Main;">1</span></span></span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span></span></span><span class="munderover" id="MathJax-Span-25" style="padding-left: 0.186em;"><span style="display: inline-block; position: relative; width: 2.872em; height: 0px;"><span style="position: absolute; clip: rect(3.117em 1000.98em 4.46em -999.997em); top: -4.026em; left: 0em;"><span class="mo" id="MathJax-Span-26" style="font-family: MathJax_Size1; vertical-align: 0em;">&#8721;</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(3.361em 1000.43em 4.216em -999.997em); top: -4.515em; left: 1.041em;"><span class="mn" id="MathJax-Span-27" style="font-size: 70.7%; font-family: MathJax_Main;">1</span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span><span style="position: absolute; clip: rect(3.361em 1001.84em 4.338em -999.997em); top: -3.721em; left: 1.041em;"><span class="texatom" id="MathJax-Span-28"><span class="mrow" id="MathJax-Span-29"><span class="mi" id="MathJax-Span-30" style="font-size: 70.7%; font-family: MathJax_Math-italic;">j</span><span class="mo" id="MathJax-Span-31" style="font-size: 70.7%; font-family: MathJax_Main;">=</span><span class="mo" id="MathJax-Span-32" style="font-size: 70.7%; font-family: MathJax_Main;">&#8722;</span><span class="mn" id="MathJax-Span-33" style="font-size: 70.7%; font-family: MathJax_Main;">1</span></span></span><span style="display: inline-block; width: 0px; height: 4.032em;"></span></span></span></span><span class="mi" id="MathJax-Span-34" style="font-family: MathJax_Math-italic; padding-left: 0.186em;">F<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.125em;"></span></span><span class="mi" id="MathJax-Span-35" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-36" style="font-family: MathJax_Math-italic;">l</span><span class="mi" id="MathJax-Span-37" style="font-family: MathJax_Math-italic;">t</span><span class="mi" id="MathJax-Span-38" style="font-family: MathJax_Math-italic;">r</span><span class="mi" id="MathJax-Span-39" style="font-family: MathJax_Math-italic;">e</span><span class="mo" id="MathJax-Span-40" style="font-family: MathJax_Main;">(</span><span class="mi" id="MathJax-Span-41" style="font-family: MathJax_Math-italic;">i</span><span class="mo" id="MathJax-Span-42" style="font-family: MathJax_Main; padding-left: 0.247em;">+</span><span class="mn" id="MathJax-Span-43" style="font-family: MathJax_Main; padding-left: 0.247em;">1</span><span class="mo" id="MathJax-Span-44" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-45" style="font-family: MathJax_Math-italic; padding-left: 0.186em;">j</span><span class="mo" id="MathJax-Span-46" style="font-family: MathJax_Main; padding-left: 0.247em;">+</span><span class="mn" id="MathJax-Span-47" style="font-family: MathJax_Main; padding-left: 0.247em;">1</span><span class="mo" id="MathJax-Span-48" style="font-family: MathJax_Main;">)</span><span class="mo" id="MathJax-Span-49" style="font-family: MathJax_Main;">.</span><span class="mi" id="MathJax-Span-50" style="font-family: MathJax_Math-italic; padding-left: 0.186em;">T<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.125em;"></span></span><span class="mi" id="MathJax-Span-51" style="font-family: MathJax_Math-italic;">P<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.125em;"></span></span><span class="mi" id="MathJax-Span-52" style="font-family: MathJax_Math-italic;">i</span><span class="mi" id="MathJax-Span-53" style="font-family: MathJax_Math-italic;">x</span><span class="mo" id="MathJax-Span-54" style="font-family: MathJax_Main;">(</span><span class="mi" id="MathJax-Span-55" style="font-family: MathJax_Math-italic;">x</span><span class="mo" id="MathJax-Span-56" style="font-family: MathJax_Main; padding-left: 0.247em;">+</span><span class="mi" id="MathJax-Span-57" style="font-family: MathJax_Math-italic; padding-left: 0.247em;">i</span><span class="mo" id="MathJax-Span-58" style="font-family: MathJax_Main;">,</span><span class="mi" id="MathJax-Span-59" style="font-family: MathJax_Math-italic; padding-left: 0.186em;">y<span style="display: inline-block; overflow: hidden; height: 1px; width: 0.003em;"></span></span><span class="mo" id="MathJax-Span-60" style="font-family: MathJax_Main; padding-left: 0.247em;">+</span><span class="mi" id="MathJax-Span-61" style="font-family: MathJax_Math-italic; padding-left: 0.247em;">j</span><span class="mo" id="MathJax-Span-62" style="font-family: MathJax_Main;">)</span></span><span style="display: inline-block; width: 0px; height: 2.201em;"></span></span></span><span style="display: inline-block; overflow: hidden; vertical-align: -0.612em; border-left: 0px solid; width: 0px; height: 1.927em;"></span></span></nobr><span class="MJX_Assistive_MathML" role="presentation"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>T</mi><mi>P</mi><mi>i</mi><mi>x</mi><mo stretchy="false">(</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mn>1</mn><mn>9</mn></mfrac><munderover><mo>&#8721;</mo><mrow class="MJX-TeXAtom-ORD"><mi>i</mi><mo>=</mo><mo>&#8722;</mo><mn>1</mn></mrow><mn>1</mn></munderover><munderover><mo>&#8721;</mo><mrow class="MJX-TeXAtom-ORD"><mi>j</mi><mo>=</mo><mo>&#8722;</mo><mn>1</mn></mrow><mn>1</mn></munderover><mi>F</mi><mi>i</mi><mi>l</mi><mi>t</mi><mi>r</mi><mi>e</mi><mo stretchy="false">(</mo><mi>i</mi><mo>+</mo><mn>1</mn><mo>,</mo><mi>j</mi><mo>+</mo><mn>1</mn><mo stretchy="false">)</mo><mo>.</mo><mi>T</mi><mi>P</mi><mi>i</mi><mi>x</mi><mo stretchy="false">(</mo><mi>x</mi><mo>+</mo><mi>i</mi><mo>,</mo><mi>y</mi><mo>+</mo><mi>j</mi><mo stretchy="false">)</mo></math></span></span><script type="math/tex" id="MathJax-Element-1"> TPix(x,y) = \frac{1}{9} \sum_{i=-1}^1 \sum_{j=-1}^1 Filtre(i+1,j+1).TPix(x+i, y+j) </script>. 
+              <br>
+              Pour chaque canal de couleur, il s'agit de calculer la composante du pixel TPix(x,y) en fonction des composantes de ses voisins pondérées par les coefficients du filtre. 
+              Puis vient la normalisation où l'on divise par 9, le nombre d'éléments de la matrice, afin que la valeur de chaque composante reste comprise entre 0 et 255. Enfin, je créé 
+              le pixel convolué avec les trois composantes calculées et la fonction le retourne au programme appelant.
+          </p>
+          <p>
+              La boucle de traitement reste très simple :
+          </p>
+          <p class="style2">TabPixel = img.load()</p>
+          <p class="style2">for x in range(1,ligne-1):</p>
+          <p class="style2">&nbsp; for y in range(1,colonne-1):</p>
+          <p class="style2">&nbsp;&nbsp; p = Convolution2D(Filtre,TabPixel,x,y)</p>
+          <p class="style2">&nbsp;&nbsp; imgF.putpixel((y,x),p)</p>
+          <p>
+              Je charge l'image dans la matrice TabPixel en utilisant la méthode load(). Puis je parcours la matrice pixel par pixel. Pour chaque pixel, je procéde à sa convolution
+              en appelant la fonction Convolution2D puis je stocke le pixel convolué dans imgF, l'image filtrée.
+          </p>
+          <p>
+              Voici le résultat obtenu avec le filtre de convolution défini ci-dessus :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" style="float:left; width: 480px; height: 350px" alt="HawkEye">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeyeconvol.png" style="float:right; width: 480px; height: 350px" alt="HawkEye filtre contraste">
+          <div style="clear:both;"></div>
+             
+
+          <h5>Un filtre passe-haut</h5>
+          <p>
+              Un filtre passe-haut est un filtre qui accentue les fréquences hautes par rapport aux fréquences basses. Dans une image, cela se traduit pas l'accentuation des détails.
+          </p>
+          <p>
+              Pour obtenir un filtre passe-haut, nous utiliserons la matrice Filtre :
+          </p>
+          <p class="style2">Filtre = [[0,-4,0],[-4,18,-4],[0,-4,-0]]</p>
+          <p>
+              Voici le résultat obtenu avec ce filtre :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" style="float:left; width: 480px; height: 350px" alt="HawkEye">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeyepassehaut.png" style="float:right; width: 480px; height: 350px" alt="HawkEye filtre passe-haut">
+          <div style="clear:both;"></div>
+          <p>
+              Je vous invite à faire varier les valeurs des coefficients de la matrice de convolution et de vérifier l'effet sur l'image. Par exemple, quel est l'effet d'une 
+              modification de l'élément Filtre[2][2] ?
+          </p>
+
+          <h5>Un filtre passe-bas</h5>
+          <p>
+              Un filtre passe-haut est un filtre qui accentue les fréquences basses par rapport aux fréquences hautes. Dans une image, cela se traduit pas l'adoucissement des détails et 
+              la réduction du bruit.
+          </p>
+          <p>
+              Pour obtenir un filtre passe-bas, nous utiliserons la matrice Filtre :
+          </p>
+          <p class="style2">Filtre = [[1,1,1],[1,6,1],[1,1,1]]</p>
+          <p>
+              Voici le résultat obtenu avec ce filtre :
+          </p>
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeye.jpg" style="float:left; width: 480px; height: 350px" alt="HawkEye">
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/hawkeyepassebas.png" style="float:right; width: 480px; height: 350px" alt="HawkEye filtre passe-bas">
+          <div style="clear:both;"></div>
+          <p>
+              Là aussi, faites varier les composantes du filtre, expérimentez !
+          </p>
+
+
+          <h4>Détection de contours</h4>
+          <p>
+              La reconnaissance de formes dans une image est une composante importante de l'analyse d'images. Elle se décompose en plusieurs étapes qui consistent à extraire les contours des
+              objets dans l'image afin de les reconnaitre ou d'en détecter le mouvement. La première de ces étapes est la mise en évidence des contours des objets dans l'image. C'est cette
+              étape que nous allons aborder très succintement.
+          </p>
+          <p>
+              Un contour définit la limite d'un objet dans une image. Cette limite est caractérisée par un changement dans l'image : un changement de couleur ou de contraste. Ce changement 
+              se traduit dans la valeur des pixels qui sont localisés de part et d'autre de la limite. Nous sommes donc à la recherche d'un moyen de détecter et de localiser un changement.
+              Les mathématiques nous donnent ce moyen sous la forme de la différentiation. On utilise habituellement des outils comme le gradient et le laplacien, bien connus des élèves de 
+              prépa, pour détecter ce changement. Mais ici, nous allons faire un peu plus simple en gardant le même principe.
+          </p>
+          <p>
+              Considérons un pixel p(i,j) dans une image couleur. Ce pixel est-il semblable, de même couleur, que ses voisins ? Si non, quelle est la différence de couleur entre lui et
+              ses voisins ? Est-elle grande, ce qui signifierait qu'il est situé à la limite d'un objet ? Que signifie une "grande" ou une "petite" différence ? Comment la mesurer pratiquement ?
+              C'est ce que nous allons essayer de traduire en algorithme.
+          </p>
+          <p>
+              Ce problème a fait l'objet de très nombreuses recherches. Il existe des algorithmes très efficaces et compliqués pour résoudre ce problème, surtout s'agissant d'images en 
+              couleurs. Mais il existe aussi des moyens simples, pas très performants mais utiles pour comprendre. Voyons la solution rudimentaire que je vous propose et ses résultats.
+          </p>
+          <p>
+              Le principe est de récupérer la valeur de chaque pixel avoisinant pour chaque pixel de l'image, ce que je fait dans cette boucle :
+          </p>
+          <p class="style2">for i in range(1,ligne-1):</p>
+          <p class="style2">&nbsp; for j in range(1,colonne-1):</p>
+          <p class="style2">&nbsp; &nbsp; p1 = img.getpixel((j-1,i))</p>
+          <p class="style2">&nbsp; &nbsp; p2 = img.getpixel((j,i-1))</p>
+          <p class="style2">&nbsp; &nbsp; p3 = img.getpixel((j+1,i))</p>
+          <p class="style2">&nbsp; &nbsp; p4 = img.getpixel((j,i+1))</p>
+          <p>
+              Puis de mesurer la différence, la "distance", entre notre pixel de référence et ses voisins en utilisant une fonction de norme standard, que vous reconnaissez surement ! 
+              Il existe bien d'autres normes, mais je vais au plus simple :
+          </p>
+          <p class="style2">def Norme(p1,p2,p3,p4):</p>
+          <p class="style2">&nbsp; n = sqrt((p1[0]-p3[0])*(p1[0]-p3[0]) + (p2[0]-p4[0])*(p2[0]-p4[0]))</p>
+          <p class="style2">return n</p>
+          <p>
+              Et c'est là que nous avons un petit problème ! Je passe à mon fonction Norme() les 4 pixels dont je veux évaluer la distance. Ce serait très simple si les pixels
+              étaient codés sur un entier, comme dans une image en gris. Mais dans une image couleur, chaque pixel est un 3-tuple ! Il faudrait donc coder une norme avec trois variables par pixel.
+              c'est faisable, mais assez compliqué, en tous les cas trop pour le scope de notre site. Donc, il va falloir ruser ! Vous remarquez que dans ma fonction, je ne travaille que sur le
+              premier élément du 3-tuple, ce qui me permet d'écrire une norme pas trop compliquée. Mais qu'est-ce qui m'autorise à faire ça ?
+          </p>
+          <p>
+              C'est que j'ai un peu triché ! J'ai transformé notre image de référence en image à niveaux de gris avec l'algorithme vu précédement. Et vous savez maintenant que les composantes d'un
+              3-tuple d'une image en niveaux de gris sont identiques !
+          </p>
+          <p>
+              Après avoir calculé la distance entre mon pixel courant et ses voisins, je décide si ce pixel est sur un contour ou pas à l'aide d'un seuillage. S'il est inférieur au seuil, c'est
+              à dire pas très "distant" de ses voisins, je décide qu'il n'est pas élément d'un contour et je trace le en blanc, sinon, je le trace en noir, comme un contour. C'est le bout de code
+              suivant qui fait ça : 
+          </p>
+          <p class="style2">if n &lt; seuil:</p>
+          <p class="style2">&nbsp; p = (255,255,255)</p>
+          <p class="style2">else:</p>
+          <p class="style2">&nbsp; p = (0,0,0)</p>
+          <p class="style2">imgC.putpixel((j-1,i-1),p)</p>
+          <p>
+              Voilà pour le principe. Lançons maintenant le script TIExtractionContours.py correspondant et voyons les résultats:
+          </p>
+              <img src="./Rudiments de traitement d&#39;images avec Python_files/TIExtractionContours.png" style="float:left; width: 480px; height: 350px" alt="Extraction contours algo simplifié">
+              <img src="./Rudiments de traitement d&#39;images avec Python_files/TIExtractionContoursPIL.jpg" style="float:right; width: 480px; height: 350px" alt="Extraction contours PIL">
+              <div style="clear:both;"></div>
+          <p>
+              L'image de gauche a été obtenue avec mon script, seuillé à 30. L'image de droite a été obtenue avec la méthode PIL qui procède à l'extraction de contours par filtrage 
+              avec amincissement et fermeture des contours, ce que mon algo ne fait pas... Je ne sais pas ce que vous en pensez, mais mon algo trivial n'a pas trop à rougir ! 
+              Bien sur, il est bien plus lent et inefficace. En bref, il est à usage pédagogique et certainement pas pratique ! Mais il peut être amélioré, en particulier en amincissant
+              les contours. On peut aussi améliorer son temps d'exécution en utilisant la méthode load() puis des affectations, plutôt que getpixel() et putpixel().
+          </p>
+          <p>
+              Une dernière chose à propos de la détection de contours : on peut très bien la faire avec un filtrage convolutif, vu plus haut, en utilisant les filtres convenables: un filtre 
+              laplacien, de Sobel, Prewitt, Freeman, Kirsch et autres. Google vous renseignera sur le sujet.
+          </p>
+
+
+
+          <h3>Les scripts Python</h3>
+          <p> 
+            Les scripts Python étudiés dans cette page sont disponibles dans le package <a href="http://www.tangentex.com/Codes/TIPython.zip">TIPython.zip</a> : 
+          </p>
+          <ul>
+            <li>TIProg1.py : programme d'ouverture et d'affichage d'une image avec la librairie PIL</li>
+            <li>TIProg2.py : le même en utilisant Scipy et MatPlotLib</li>
+            <li>TIProgNégatif.py : Négatif d'une photo couleur</li>
+            <li>TIProgSymétrie.py : Symétrie miroir d'une photo couleur</li>
+            <li>TIProgRotate.py : Rotation de PI/2 sens trigo avec redimensionnement de l'image</li>
+            <li>TIProgFusion.py : fusion de deux images</li>
+            <li>TIProgNiveauGris.py : programme de transformation d'une image couleurs en niveaux de gris</li>
+            <li>TIProgNiveauGrisSpeed.py : programme de transformation d'une image couleurs en niveaux de gris avaec la méthode load()</li>
+            <li>TIProgFiltre1.py : filtre coloré</li>
+            <li>TIFiltreConvolution.py : filtrage par convolution avec une matrice 3x3</li>
+            <li>TIExtractionContours.py : programme d'extraction des contours d'une image couleur</li>
+          </ul>
+
+      <h3> Pour conclure</h3>
+      <p> 
+          Les scripts proposés ici sont uniquement à usage pédagogique. Cependant, la librairie PIL fournit elle des outils de traitement d'images assez performants. Je vous invite
+          à les explorer. Vous pouvez produire assez simplement, même avec mes petits scripts, des images avec des effets visuels amusants, par exemple en superposant une image et
+          le négatif d'une autre, ou en forçant les contrastes selon les canaux pour obtenir un effet "Andy Warhol".
+      </p>
+      <br>
+    </div>
+    
+      <div id="pied_page">
+      <p style="text-align: center;font-size: 8pt"> Contenu et design par Dominique Lefebvre - www.tangenteX.com janvier 2016 -- Vous pouvez me joindre par 
+          <a href="mailto:dominique.lefebvre@tangenteX.com">mail</a> ou sur <a href="http://physiquex.1fr1.net/">PhysiqueX</a> 
+      </p>
+      <p style="text-align: center;"> <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/fr/" rel="license"> 
+          <img src="./Rudiments de traitement d&#39;images avec Python_files/88x31.png" style="border-width:0" alt="Licence Creative Commons"></a> 
+      </p>
+      <p style="text-align: center;font-size: 8pt"> Cette œuvre est mise à disposition selon les termes de la <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/fr/" rel="license">
+          Licence Creative Commons Attribution - Pas d’Utilisation Commerciale - Pas de Modification 3.0 France</a>. 
+      </p>
+    </div>
+  
+
+<div style="position: absolute; width: 0px; height: 0px; overflow: hidden; padding: 0px; border: 0px; margin: 0px;"><div id="MathJax_Font_Test" style="position: absolute; visibility: hidden; top: 0px; left: 0px; width: auto; padding: 0px; border: 0px; margin: 0px; white-space: nowrap; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; font-size: 40px; font-weight: normal; font-style: normal; font-family: MathJax_Size1, sans-serif;"></div></div></body></html>
